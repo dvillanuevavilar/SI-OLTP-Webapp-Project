@@ -1,0 +1,34 @@
+<zk>
+	<window title="Hello World" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('es.uvigo.webapp.TestVM')">
+
+		<vbox>
+			<hbox>
+				The family has:
+				<label value="@bind(vm.employeesCount)"></label>
+			</hbox>
+			<hbox>
+				Hey, what is your name?
+				<textbox value="@bind(vm.name)"></textbox>
+			</hbox>
+			<hbox>
+				Your name is:
+				<label value="@bind(vm.name)"></label>
+			</hbox>
+
+			<button onClick="@command('submitEmployee')" label="submit"
+				disabled="@bind(vm.name eq '')">
+			</button>
+		</vbox>
+
+
+
+
+
+
+
+
+
+	</window>
+</zk>
