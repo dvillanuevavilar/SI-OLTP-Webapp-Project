@@ -1,7 +1,7 @@
 <zk>
 	<window title="Hola Conductor" border="normal"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('es.uvigo.webapp.Conductor_webapp')">
+		viewModel="@id('vm') @init('es.uvigo.webapp.ConductorVM')">
 
 		<vbox>
 			<hbox>
@@ -12,8 +12,8 @@
 				Estado de embriaguez:
 				<radiogroup selectedItem="@bind(vm.ebrio)">
 					<hlayout>
-						<radio label="Ebrio" value="true" />
-						<radio label="Sobrio" value="false" />
+						<radio label="Ebrio" value="true" setChecked="@bind(vm.ebrio)"/>
+						<radio label="Sobrio" value="false" setChecked="@bind(!vm.ebrio)"/>
 					</hlayout>
 				</radiogroup>
 			</hbox>

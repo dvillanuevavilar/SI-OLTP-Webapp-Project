@@ -11,7 +11,7 @@ import es.uvigo.Employee;
 import es.uvigo.TransactionUtils;
 import es.uvigo.webapp.util.DesktopEntityManagerManager;
 
-public class Conductor_webapp {
+public class ConductorVM{
 	
 	private boolean ebrio = false;
 	private int edad = 0;
