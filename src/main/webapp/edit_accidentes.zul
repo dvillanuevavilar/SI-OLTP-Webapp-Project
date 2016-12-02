@@ -1,0 +1,138 @@
+<zk>
+	<include src="menu.zul" />
+	<window title="Editar Accidentes" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('es.uvigo.webapp.AccidentesVM')">
+
+		<window title="Editor de Accidentes" border="normal"
+			mode="modal" visible="@load(vm.currentAccidente ne null)">
+			<hbox>
+				Fecha:
+				<datebox id="createdDatebox"
+					value="@load(vm.currentAccidente.fecha) @save(vm.currentAccidente.fecha, before='save')"
+					format="yyyy/MM/dd" constraint="no empty" />
+			</hbox>
+			<hbox>
+				Localizacion:
+				<combobox model="@load(vm.localizaciones)"
+					selectedItem="@load(vm.currentAccidente.localizacion) @save(vm.currentAccidente.localizacion, before='save')">
+					<template name="model">
+						<comboitem label="@load(each.localidad)" />
+					</template>
+				</combobox>
+			</hbox>
+			<hbox>
+				Clima:
+				<combobox model="@load(vm.climas)"
+					selectedItem="@load(vm.currentAccidente.clima) @save(vm.currentAccidente.clima, before='save')">
+					<template name="model">
+						<comboitem
+							label="@load(each.condicion_meteorologica)" />
+					</template>
+				</combobox>
+			</hbox>
+			<hbox>
+				Vía:
+				<combobox model="@load(vm.vias)"
+					selectedItem="@load(vm.currentAccidente.via) @save(vm.currentAccidente.via, before='save')">
+					<template name="model">
+						<comboitem label="@load(each.id)" />
+					</template>
+				</combobox>
+			</hbox>
+			<hbox>Vehículos:</hbox>
+			<hbox>
+				<listbox model="@load(vm.vehiculos)" multiple="true"
+					width="200px" checkmark="true"
+					selectedItems="@load(vm.currentAccidente.vehiculos) @save(vm.currentAccidente.vehiculos, before='save')">
+					<listhead>
+						<listheader label="Id de vehículo"></listheader>
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell>
+								<label value="@load(each.id)" />
+							</listcell>
+						</listitem>
+
+					</template>
+
+				</listbox>
+			</hbox>
+			<hbox>Damnificados:</hbox>
+			<hbox>
+				<listbox model="@load(vm.damnificados)" multiple="true"
+					width="200px" checkmark="true"
+					selectedItems="@load(vm.currentAccidente.damnificados) @save(vm.currentAccidente.damnificados, before='save')">
+					<listhead>
+						<listheader label="Id de damnificado"></listheader>
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell>
+								<label value="@load(each.id)" />
+							</listcell>
+						</listitem>
+
+					</template>
+
+				</listbox>
+			</hbox>
+			<hbox>
+				<button label="Guardar" onClick="@command('save')" />
+				<button label="Cancelar" onClick="@command('cancel')" />
+			</hbox>
+		</window>
+		<groupbox mold="3d" closable="false">
+			<caption label="Lista de Accidentes">
+				<button label="Nuevo"
+					onClick="@command('newAccidente')" />
+			</caption>
+			<listbox model="@load(vm.accidentes)">
+				<listhead>
+					<listheader label="Fecha" />
+					<listheader label="Localización" />
+					<listheader label="Clima" />
+					<listheader label="Vía" />
+					<listheader label="Vehículos" />
+					<listheader label="Damnificados" />
+					<listheader label="Acciones" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell>
+							<label value="@load(each.fecha)"></label>
+						</listcell>
+						<listcell>
+							<label
+								value="@load(each.localizacion.localidad)">
+							</label>
+						</listcell>
+						<listcell>
+							<label
+								value="@load(each.clima.condicion_meteorologica)">
+							</label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.via.id)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.vehiculos)">
+							</label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.damnificados)">
+							</label>
+						</listcell>
+						<listcell>
+							<button label="Eliminar"
+								onClick="@command('delete', a=each)" />
+							<button label="Editar"
+								onClick="@command('edit', a=each)" />
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</groupbox>
+	</window>
+</zk>

@@ -1,6 +1,6 @@
 <zk>
 	<include src="menu.zul" />
-	<window title="Edit Departments" border="normal"
+	<window title="Editar Climas" border="normal"
 		apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('es.uvigo.webapp.ClimasVM')">
 

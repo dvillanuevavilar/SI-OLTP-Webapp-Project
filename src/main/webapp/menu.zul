@@ -21,5 +21,12 @@
 				</menuitem>
 			</menupopup>
 		</menu>
+		<menu label="Accidentes">
+			<menupopup>
+				<menuitem label="Editar Accidentes..." 
+				href="edit_accidentes.zul">
+				</menuitem>
+			</menupopup>
+		</menu>
 	</menubar>
 </zk>
