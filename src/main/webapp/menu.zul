@@ -1,0 +1,11 @@
+<zk>
+	<menubar>
+		<menu label="Conductores">
+			<menupopup>
+				<menuitem label="Edit Conductores..." 
+				href="edit_conductores.zul">
+				</menuitem>
+			</menupopup>
+		</menu>
+	</menubar>
+</zk>

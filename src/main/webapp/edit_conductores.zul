@@ -1,0 +1,94 @@
+<zk>
+	<include src="menu.zul" />
+	<window title="Editar Conductores" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('es.uvigo.webapp.ConductoresVM')">
+
+		<window title="Editor de Conductores" border="normal"
+			mode="modal" visible="@load(vm.currentConductor ne null)">
+			<hbox>
+				Estado de embriaguez:
+				<radiogroup
+					selectedItem="@load(vm.currentConductor.ebrio) @save(vm.currentConductor.ebrio, before='save')">
+					<hlayout>
+						<radio label="Ebrio" value="true"
+							setChecked="@load(vm.currentConductor.ebrio)" />
+						<radio label="Sobrio" value="false"
+							setChecked="@load(!vm.currentConductor.ebrio)" />
+					</hlayout>
+				</radiogroup>
+			</hbox>
+			<hbox>
+				Sexo:
+				<listbox
+					selectedItem="@load(vm.currentConductor.sexo) @save(vm.currentConductor.sexo, before='save')"
+					mold="select" tabindex="8">
+					<listitem label="Hombre" value="Hombre" />
+					<listitem label="Mujer" value="Mujer" />
+				</listbox>
+			</hbox>
+			<hbox>
+				Edad:
+				<cell>
+					<intbox
+						value="@load(vm.currentConductor.edad) @save(vm.currentConductor.edad, before='save')"
+						width="50px" tabindex="4" />
+				</cell>
+			</hbox>
+			<hbox>
+
+				<button label="Guardar" onClick="@command('save')" />
+				<button label="Cancelar" onClick="@command('cancel')" />
+			</hbox>
+
+		</window>
+
+
+		<groupbox mold="3d" closable="false">
+
+			<caption label="Lista de Conductores">
+				<button label="Nuevo"
+					onClick="@command('newConductor')" />
+			</caption>
+
+			<listbox model="@load(vm.conductores)">
+				<listhead>
+					<listheader label="Sexo" />
+					<listheader label="Edad" />
+					<listheader label="Rango edad" />
+					<listheader label="Embriaguez" />
+					<listheader label="Vehículo id" />
+					<listheader label="Acciones" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell>
+							<label value="@load(each.sexo)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.edad)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.rango_edad)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.ebrio)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.vehiculo.id)"></label>
+						</listcell>
+						<listcell>
+							<button label="Eliminar"
+								onClick="@command('delete', e=each)" />
+							<button label="Editar"
+								onClick="@command('edit', e=each)" />
+
+						</listcell>
+					</listitem>
+				</template>
+
+			</listbox>
+
+		</groupbox>
+	</window>
+</zk>

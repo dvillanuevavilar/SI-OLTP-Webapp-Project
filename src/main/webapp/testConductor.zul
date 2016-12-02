@@ -1,7 +1,7 @@
 <zk>
 	<window title="Hola Conductor" border="normal"
 		apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('es.uvigo.webapp.ConductorVM')">
+		viewModel="@id('vm') @init('es.uvigo.webapp.ConductorVMejem')">
 
 		<vbox>
 			<hbox>
