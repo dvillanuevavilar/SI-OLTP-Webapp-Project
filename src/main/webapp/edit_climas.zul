@@ -1,0 +1,46 @@
+<zk>
+	<include src="menu.zul" />
+	<window title="Edit Departments" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('es.uvigo.webapp.ClimasVM')">
+
+		<window title="Editor de Climas" border="normal" mode="modal"
+			visible="@load(vm.currentClima ne null)">
+			<hbox>
+			Condición meteorológica:
+			<textbox
+				value="@load(vm.currentClima.condicion_meteorologica) @save(vm.currentClima.condicion_meteorologica, before='save')" />
+			</hbox>
+			<hbox>
+				<button label="Guardar" onClick="@command('save')" />
+				<button label="Cancelar" onClick="@command('cancel')" />
+			</hbox>
+		</window>
+		<groupbox mold="3d" closable="false">
+			<caption label="Lista de Climas">
+				<button label="Nuevo" onClick="@command('newClima')" />
+			</caption>
+			<listbox model="@load(vm.climas)">
+				<listhead>
+					<listheader label="Condición meteorológica" />
+					<listheader label="Acciones" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell>
+							<label
+								value="@load(each.condicion_meteorologica)">
+							</label>
+						</listcell>
+						<listcell>
+							<button label="Eliminar"
+								onClick="@command('delete', c=each)" />
+							<button label="Editar"
+								onClick="@command('edit', c=each)" />
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</groupbox>
+	</window>
+</zk>

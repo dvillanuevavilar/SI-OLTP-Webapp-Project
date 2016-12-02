@@ -23,7 +23,7 @@ public class VehiculosVM {
 	
 	public List<Conductor> getConductores(){
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
-		return em.createQuery("SELECT c FROM Conductor c", Conductor.class).getResultList();
+		return em.createQuery("SELECT c FROM Conductor c WHERE c.id NOT IN (SELECT conductor FROM Vehiculo)", Conductor.class).getResultList();
 	}
 	
 	public List<Vehiculo> getVehiculos(){

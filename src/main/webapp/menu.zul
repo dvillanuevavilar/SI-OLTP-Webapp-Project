@@ -14,5 +14,12 @@
 				</menuitem>
 			</menupopup>
 		</menu>
+		<menu label="Climas">
+			<menupopup>
+				<menuitem label="Editar Climas..." 
+				href="edit_climas.zul">
+				</menuitem>
+			</menupopup>
+		</menu>
 	</menubar>
 </zk>

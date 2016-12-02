@@ -68,7 +68,7 @@
 			<hbox>
 				Conductores:
 				<combobox model="@load(vm.conductores)"
-					selectedItem="@load(vm.currentVehiculo.conductor) @save(vm.currentVehiculo.conductor, before='save')">
+					selectedItem="@load(vm.currentVehiculo.conductor) @save(vm.currentVehiculo.conductor, before='save')" >
 					<template name="model">
 						<comboitem label="@load(each.id)" />
 					</template>
