@@ -53,7 +53,7 @@ public class VehiculosVM {
 	}
 	
 	@Command
-	@NotifyChange({"vehiculos", "currentVehiculo"})
+	@NotifyChange({"vehiculos", "currentVehiculo","conductores"})
 	public void save() {
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
 		TransactionUtils.doTransaction(em, __ -> {
