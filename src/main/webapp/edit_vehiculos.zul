@@ -1,0 +1,146 @@
+<zk>
+	<include src="menu.zul" />
+	<window title="Editar Vehículos" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('es.uvigo.webapp.VehiculosVM')">
+
+		<window title="Editor de Vehiculos" border="normal" mode="modal"
+			visible="@load(vm.currentVehiculo ne null)">
+			<hbox>
+				Tipo de vehículo:
+				<cell>
+					<textbox
+						value="@load(vm.currentVehiculo.tipo_vehiculo) @save(vm.currentVehiculo.tipo_vehiculo, before='save')" />
+				</cell>
+			</hbox>
+			<hbox>
+				Articulación:
+				<cell>
+					<textbox
+						value="@load(vm.currentVehiculo.articulado) @save(vm.currentVehiculo.articulado, before='save')" />
+				</cell>
+			</hbox>
+			<hbox>
+				Años:
+				<cell>
+					<intbox
+						value="@load(vm.currentVehiculo.anhos) @save(vm.currentVehiculo.anhos, before='save')"
+						width="50px" tabindex="4" />
+				</cell>
+			</hbox>
+			<hbox>
+				Maniobra:
+				<cell>
+					<textbox
+						value="@load(vm.currentVehiculo.maniobra) @save(vm.currentVehiculo.maniobra, before='save')" />
+				</cell>
+			</hbox>
+			<hbox>
+				Impacto:
+				<cell>
+					<textbox
+						value="@load(vm.currentVehiculo.impacto) @save(vm.currentVehiculo.impacto, before='save')" />
+				</cell>
+			</hbox>
+			<hbox>
+				Volante izq?:
+				<radiogroup
+					selectedItem="@load(vm.currentVehiculo.volante_izq) @save(vm.currentVehiculo.volante_izq, before='save')">
+					<hlayout>
+						<radio label="Sí" value="true"
+							setChecked="@load(vm.currentVehiculo.volante_izq)" />
+						<radio label="No" value="false"
+							setChecked="@load(!vm.currentVehiculo.volante_izq)" />
+					</hlayout>
+				</radiogroup>
+			</hbox>
+			<hbox>
+				Combustible:
+				<listbox
+					selectedItem="@load(vm.currentVehiculo.combustible) @save(vm.currentVehiculo.combustible, before='save')"
+					mold="select" tabindex="8">
+					<listitem label="Gasolina" value="Gasolina" />
+					<listitem label="Diesel" value="Diesel" />
+					<listitem label="Gas" value="Gas" />
+					<listitem label="Queroseno" value="Queroseno" />
+				</listbox>
+			</hbox>
+			<hbox>
+				Conductores:
+				<combobox model="@load(vm.conductores)"
+					selectedItem="@load(vm.currentVehiculo.conductor) @save(vm.currentVehiculo.conductor, before='save')">
+					<template name="model">
+						<comboitem label="@load(each.id)" />
+					</template>
+				</combobox>
+			</hbox>
+			<hbox>
+				<button label="Guardar" onClick="@command('save')" />
+				<button label="Cancelar" onClick="@command('cancel')" />
+			</hbox>
+		</window>
+
+
+		<groupbox mold="3d" closable="false">
+
+			<caption label="Lista de Vehículos">
+				<button label="Nuevo" onClick="@command('newVehiculo')" />
+			</caption>
+
+			<listbox model="@load(vm.vehiculos)">
+				<listhead>
+					<listheader label="Tipo de vehículo" />
+					<listheader label="Articulación" />
+					<listheader label="Años" />
+					<listheader label="Maniobra" />
+					<listheader label="Impacto" />
+					<listheader label="Volante Izq?" />
+					<listheader label="Combustible" />
+					<listheader label="Conductor_id" />
+					<listheader label="Accidentes" />
+					<listheader label="Acciones" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell>
+							<label value="@load(each.tipo_vehiculo)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.articulado)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.anhos)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.maniobra)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.impacto)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.volante_izq)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.combustible)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.conductor.id)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.accidentes)"></label>
+						</listcell>
+						<listcell>
+							<button label="Eliminar"
+								onClick="@command('delete', v=each)" />
+							<button label="Editar"
+								onClick="@command('edit', v=each)" />
+
+						</listcell>
+					</listitem>
+				</template>
+
+			</listbox>
+
+		</groupbox>
+	</window>
+</zk>

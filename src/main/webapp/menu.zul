@@ -2,8 +2,15 @@
 	<menubar>
 		<menu label="Conductores">
 			<menupopup>
-				<menuitem label="Edit Conductores..." 
+				<menuitem label="Editar Conductores..." 
 				href="edit_conductores.zul">
+				</menuitem>
+			</menupopup>
+		</menu>
+		<menu label="Vehículos">
+			<menupopup>
+				<menuitem label="Editar Vehículos..." 
+				href="edit_vehiculos.zul">
 				</menuitem>
 			</menupopup>
 		</menu>
