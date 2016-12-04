@@ -1,39 +1,9 @@
 <zk>
-	<menubar>
-		<menu label="Conductores" >
-			<menupopup>
-				<menuitem label="Editar Conductores..." 
-				href="edit_conductores.zul">
-				</menuitem>
-			</menupopup>
-		</menu>
-		<menu label="Vehículos">
-			<menupopup>
-				<menuitem label="Editar Vehículos..." 
-				href="edit_vehiculos.zul">
-				</menuitem>
-			</menupopup>
-		</menu>
-		<menu label="Climas">
-			<menupopup>
-				<menuitem label="Editar Climas..." 
-				href="edit_climas.zul">
-				</menuitem>
-			</menupopup>
-		</menu>
-		<menu label="Accidentes">
-			<menupopup>
-				<menuitem label="Editar Accidentes..." 
-				href="edit_accidentes.zul">
-				</menuitem>
-			</menupopup>
-		</menu>
-		<menu label="Damnificados">
-			<menupopup>
-				<menuitem label="Editar Daminificados..." 
-				href="edit_damnificados.zul">
-				</menuitem>
-			</menupopup>
-		</menu>
-	</menubar>
+	<toolbar>
+        <toolbarbutton label="Conductores" href="edit_conductores.zul" tooltiptext="Editar conductores"/>
+        <toolbarbutton label="Vehículos" href="edit_vehiculos.zul" tooltiptext="Editar conductores"/>
+        <toolbarbutton label="Climas" href="edit_climas.zul" tooltiptext="Editar conductores"/>
+        <toolbarbutton label="Damnificados" href="edit_damnificados.zul" tooltiptext="Editar conductores"/>
+        <toolbarbutton label="Accidentes" href="edit_accidentes.zul" tooltiptext="Editar conductores"/>
+    </toolbar>
 </zk>

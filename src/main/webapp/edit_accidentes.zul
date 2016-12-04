@@ -43,7 +43,7 @@
 			<hbox>Vehículos:</hbox>
 			<hbox>
 				<listbox model="@load(vm.vehiculos)" multiple="true"
-					width="200px" checkmark="true"
+					rows="3" width="200px" checkmark="true"
 					selectedItems="@load(vm.currentAccidente.vehiculos) @save(vm.currentAccidente.vehiculos, before='save')">
 					<listhead>
 						<listheader label="Id de vehículo"></listheader>
@@ -62,7 +62,7 @@
 			<hbox>Damnificados:</hbox>
 			<hbox>
 				<listbox model="@load(vm.damnificados)" multiple="true"
-					width="200px" checkmark="true"
+					rows="3" width="200px" checkmark="true"
 					selectedItems="@load(vm.currentAccidente.damnificados) @save(vm.currentAccidente.damnificados, before='save')">
 					<listhead>
 						<listheader label="Id de damnificado"></listheader>
