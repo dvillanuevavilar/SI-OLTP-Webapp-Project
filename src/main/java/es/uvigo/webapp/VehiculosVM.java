@@ -1,6 +1,8 @@
 package es.uvigo.webapp;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
@@ -8,6 +10,7 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
 
+import es.uvigo.Accidente;
 import es.uvigo.Conductor;
 import es.uvigo.TransactionUtils;
 import es.uvigo.Vehiculo;
@@ -42,6 +45,10 @@ public class VehiculosVM {
 	public void delete(@BindingParam("v") Vehiculo vehiculo) {
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
 		TransactionUtils.doTransaction(em, __ -> {
+			Set<Accidente> accidentesCopy = new HashSet<>(vehiculo.getAccidentes());
+			for (Accidente ac : accidentesCopy){
+				ac.removeVehiculo(vehiculo);
+			}
 			em.remove(vehiculo);
 		});
 	}

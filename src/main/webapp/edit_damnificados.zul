@@ -1,0 +1,104 @@
+<zk>
+	<include src="menu.zul" />
+	<window title="Editar Damnificados" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('es.uvigo.webapp.DamnificadosVM')">
+
+		<window title="Editor de Damnificados" border="normal"
+			mode="modal" visible="@load(vm.currentDamnificado ne null)">
+			<hbox>
+				Sexo:
+				<listbox
+					selectedItem="@load(vm.currentDamnificado.sexo) @save(vm.currentDamnificado.sexo, before='save')"
+					mold="select" tabindex="8">
+					<listitem label="Hombre" value="Hombre" />
+					<listitem label="Mujer" value="Mujer" />
+				</listbox>
+			</hbox>
+			<hbox>
+				Edad:
+				<cell>
+					<intbox
+						value="@load(vm.currentDamnificado.edad) @save(vm.currentDamnificado.edad, before='save')"
+						width="50px" tabindex="4" />
+				</cell>
+			</hbox>
+			<hbox>
+				Gravedad:
+				<cell>
+					<textbox
+						value="@load(vm.currentDamnificado.gravedad) @save(vm.currentDamnificado.gravedad, before='save')" />
+				</cell>
+			</hbox>
+			<hbox>
+				¿Pasajero?:
+				<radiogroup
+					selectedItem="@load(vm.currentDamnificado.pasajero) @save(vm.currentDamnificado.pasajero, before='save')">
+					<hlayout>
+						<radio label="Sí" value="Sí"
+							setChecked="@load(vm.currentDamnificado.pasajero)" />
+						<radio label="No" value="No"
+							setChecked="@load(!vm.currentDamnificado.pasajero)" />
+					</hlayout>
+				</radiogroup>
+			</hbox>
+			<hbox>
+
+				<button label="Guardar" onClick="@command('save')" />
+				<button label="Cancelar" onClick="@command('cancel')" />
+			</hbox>
+		</window>
+
+
+		<groupbox mold="3d" closable="false">
+
+			<caption label="Lista de Damnificados">
+				<button label="Nuevo"
+					onClick="@command('newDamnificado')" />
+			</caption>
+
+			<listbox model="@load(vm.damnificados)">
+				<listhead>
+					<listheader label="Sexo" />
+					<listheader label="Edad" />
+					<listheader label="Rango_edad" />
+					<listheader label="Gravedad" />
+					<listheader label="Pasajero" />
+					<listheader label="Accidentes" />
+					<listheader label="Acciones" />
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell>
+							<label value="@load(each.sexo)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.edad)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.rango_edad)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.gravedad)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.pasajero)"></label>
+						</listcell>
+						<listcell>
+							<label value="@load(each.accidentes)"></label>
+						</listcell>
+						<listcell>
+							<button label="Eliminar"
+								onClick="@command('delete', d=each)" />
+							<button label="Editar"
+								onClick="@command('edit', d=each)" />
+
+						</listcell>
+					</listitem>
+				</template>
+
+			</listbox>
+
+		</groupbox>
+	</window>
+</zk>

@@ -1,6 +1,6 @@
 <zk>
 	<menubar>
-		<menu label="Conductores">
+		<menu label="Conductores" >
 			<menupopup>
 				<menuitem label="Editar Conductores..." 
 				href="edit_conductores.zul">
@@ -25,6 +25,13 @@
 			<menupopup>
 				<menuitem label="Editar Accidentes..." 
 				href="edit_accidentes.zul">
+				</menuitem>
+			</menupopup>
+		</menu>
+		<menu label="Damnificados">
+			<menupopup>
+				<menuitem label="Editar Daminificados..." 
+				href="edit_damnificados.zul">
 				</menuitem>
 			</menupopup>
 		</menu>
