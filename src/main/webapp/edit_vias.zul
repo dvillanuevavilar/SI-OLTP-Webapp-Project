@@ -1,0 +1,133 @@
+<zk>
+	<include src="menu.zul"></include>
+
+	<!-- Ventana principal -->
+	<window title="Vias" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('es.uvigo.webapp.ViasVM')">
+
+		<groupbox mold="3d" closable="false">
+
+			<caption label="Lista de Vías">
+				<button label="Nuevo" onClick="@command('newVia')">
+				</button>
+			</caption>
+
+			<!-- Lista de localizaciones -->
+			<listbox model="@load(vm.vias)">
+				<listhead>
+					<listheader label="Tipo de via"></listheader>
+					<listheader label="Número de carriles"></listheader>
+					<listheader label="Velocidad autorizada"></listheader>
+					<listheader label="Estado de la vía"></listheader>
+					<listheader label="Peligros de la calzada"></listheader>
+					<listheader label="Urbano"></listheader>
+					<listheader label="Acciones"></listheader>
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell>
+							<label value="@load(each.tipo_via)"></label>
+						</listcell>
+
+						<listcell>
+							<label value="@load(each.n_carriles)"></label>
+						</listcell>
+
+						<listcell>
+							<label
+								value="@load(each.velocidad_autorizada)">
+							</label>
+						</listcell>
+
+						<listcell>
+							<label value="@load(each.estado_via)"></label>
+						</listcell>
+
+						<listcell>
+							<label
+								value="@load(each.peligros_calzada)">
+							</label>
+						</listcell>
+
+						<listcell>
+							<label value="@load(each.urbano)"></label>
+						</listcell>
+
+						<listcell>
+							<button label="Eliminar"
+								onClick="@command('delete', v=each)">
+							</button>
+							<button label="Editar"
+								onClick="@command('edit', v=each)">
+							</button>
+						</listcell>
+
+					</listitem>
+				</template>
+			</listbox>
+
+		</groupbox>
+
+
+		<!-- Ventana de crear/editar -->
+		<window title="Editor de Vías" border="normal" mode="modal"
+			visible="@load(vm.currentVia ne null)">
+
+			<hbox>
+				Tipo de vía:
+				<textbox
+					value="@load(vm.currentVia.tipo_via) @save(vm.currentVia.tipo_via, before='save')">
+				</textbox>
+			</hbox>
+
+			<hbox>
+				Número de carriles:
+				<spinner
+					value="@load(vm.currentVia.n_carriles) @save(vm.currentVia.n_carriles, before='save')"
+					constraint="no empty,min 0" />
+			</hbox>
+
+			<hbox>
+				Velocidad autorizada:
+				<spinner
+					value="@load(vm.currentVia.velocidad_autorizada) @save(vm.currentVia.velocidad_autorizada, before='save')"
+					step="10" constraint="no empty,min 0" />
+			</hbox>
+
+			<hbox>
+				Estado de la vía:
+				<textbox
+					value="@load(vm.currentVia.estado_via) @save(vm.currentVia.estado_via, before='save')">
+				</textbox>
+			</hbox>
+
+			<hbox>
+				Peligros de la calzada:
+				<textbox
+					value="@load(vm.currentVia.peligros_calzada) @save(vm.currentVia.peligros_calzada, before='save')">
+				</textbox>
+			</hbox>
+
+			<hbox>
+				Urbano:
+				<radiogroup
+					selectedItem="@load(vm.currentVia.urbano) @save(vm.currentVia.urbano, before='save')">
+					<hlayout>
+						<radio label="Sí" value="true"
+							setChecked="@load(vm.currentVia.urbano)" />
+						<radio label="No" value="false"
+							setChecked="@load(!vm.currentVia.urbano)" />
+					</hlayout>
+				</radiogroup>
+			</hbox>
+
+			<hbox>
+				<button label="Guardar" onClick="@command('save')"></button>
+				<button label="Cancelar" onClick="@command('cancel')"></button>
+			</hbox>
+
+		</window>
+
+	</window>
+</zk>
