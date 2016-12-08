@@ -4,6 +4,7 @@
         <toolbarbutton label="Vehículos" href="edit_vehiculos.zul" tooltiptext="Editar conductores"/>
         <toolbarbutton label="Climas" href="edit_climas.zul" tooltiptext="Editar conductores"/>
         <toolbarbutton label="Damnificados" href="edit_damnificados.zul" tooltiptext="Editar conductores"/>
+        <toolbarbutton label="Localizaciones" href="edit_localizaciones.zul" tooltiptext="Editar localizaciones"/>
         <toolbarbutton label="Accidentes" href="edit_accidentes.zul" tooltiptext="Editar conductores"/>
     </toolbar>
 </zk>

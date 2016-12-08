@@ -1,0 +1,63 @@
+<zk>
+	<include src="menu.zul"></include>
+
+	<!-- Ventana principal -->
+	<window title="Localizaciones" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('es.uvigo.webapp.LocalizacionesVM')">
+
+		<groupbox mold="3d" closable="false">
+
+			<caption label="Lista de Localizaciones">
+				<button label="Nuevo"
+					onClick="@command('newLocalizacion')">
+				</button>
+			</caption>
+
+			<!-- Lista de localizaciones -->
+			<listbox model="@load(vm.localizaciones)">
+				<listhead>
+					<listheader label="Localidad"></listheader>
+					<listheader label="Acciones"></listheader>
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell>
+							<label value="@load(each.localidad)"></label>
+						</listcell>
+
+						<listcell>
+							<button label="Eliminar"
+								onClick="@command('delete', l=each)">
+							</button>
+							<button label="Editar"
+								onClick="@command('edit', l=each)">
+							</button>
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+
+		</groupbox>
+
+
+		<!-- Ventana de crear/editar -->
+		<window title="Editor de Localizaciones" border="normal"
+			mode="modal" visible="@load(vm.currentLocalizacion ne null)">
+
+			<hbox>
+				Localidad:
+				<textbox
+					value="@load(vm.currentLocalizacion.localidad) @save(vm.currentLocalizacion.localidad, before='save')">
+				</textbox>
+			</hbox>
+
+			<hbox>
+				<button label="Guardar" onClick="@command('save')"></button>
+				<button label="Cancelar" onClick="@command('cancel')"></button>
+			</hbox>
+
+		</window>
+
+	</window>
+</zk>
