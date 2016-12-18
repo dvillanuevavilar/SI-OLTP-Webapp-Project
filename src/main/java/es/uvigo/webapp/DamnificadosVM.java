@@ -18,22 +18,39 @@ import es.uvigo.webapp.util.DesktopEntityManagerManager;
 public class DamnificadosVM {
 
 	private Damnificado currentDamnificado = null;
-
+	
+	/**
+	 * 
+	 * @return currentDamnificado
+	 */
 	public Damnificado getCurrentDamnificado() {
 		return currentDamnificado;
 	}
-
+	
+	/**
+	 * Devuelve una lista con los damnificados existentes en base de datos
+	 * @return List Damnificado
+	 */
 	public List<Damnificado> getDamnificados() {
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
 		return em.createQuery("SELECT d FROM Damnificado d", Damnificado.class).getResultList();
 	}
-
+	
+	/**
+	 * Inicializa currentDamnificado con un objeto Damnificado
+	 */
 	@Command
 	@NotifyChange("currentDamnificado")
 	public void newDamnificado() {
 		this.currentDamnificado = new Damnificado();
 	}
-
+	
+	/**
+	 * Elimina el damnificado de la base de datos pasado como parámetro.
+	 * Para ello se recorre todos los accidentes asociados de ese damnificado
+	 * eliminando dicho damnificado por cada accidente
+	 * @param damnificado
+	 */
 	@Command
 	@NotifyChange("damnificados")
 	public void delete(@BindingParam("d") Damnificado damnificado) {
@@ -46,13 +63,22 @@ public class DamnificadosVM {
 			em.remove(damnificado);
 		});
 	}
-
+	
+	/**
+	 * Permite editar un damnificado. Para ello almacena en currentDamnificado 
+	 * el damnificado pasado como parámetro.
+	 * @param damnificado
+	 */
 	@Command
 	@NotifyChange("currentDamnificado")
 	public void edit(@BindingParam("d") Damnificado damnificado) {
 		this.currentDamnificado = damnificado;
 	}
-
+	
+	/**
+	 * Permite almacenar o persistir el objeto currentDamnificado
+	 * en base de datos. Una vez hecho esto lo establece a null.
+	 */
 	@Command
 	@NotifyChange({ "damnificados", "currentDamnificado" })
 	public void save() {
@@ -63,13 +89,19 @@ public class DamnificadosVM {
 		});
 		this.currentDamnificado = null;
 	}
-
+	
+	/**
+	 * Cancela la acción estableciendo currentDamnificado a null
+	 */
 	@Command
 	@NotifyChange("currentDamnificado")
 	public void cancel() {
 		this.currentDamnificado = null;
 	}
-
+	
+	/**
+	 * Establece un rango de edad en función de su edad.
+	 */
 	public void setRango_edad() {
 
 		switch ((int) this.getCurrentDamnificado().getEdad() / 10) {

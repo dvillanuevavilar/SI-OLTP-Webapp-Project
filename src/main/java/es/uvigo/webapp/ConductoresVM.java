@@ -18,22 +18,39 @@ import es.uvigo.Vehiculo;
 public class ConductoresVM {
 
 	private Conductor currentConductor = null;
-
+	
+	/**
+	 * 
+	 * @return currentConductor
+	 */
 	public Conductor getCurrentConductor() {
 		return currentConductor;
 	}
-
+	
+	/**
+	 * Devuelve una lista con los conductores existentes en base de datos
+	 * @return List Conductor
+	 */
 	public List<Conductor> getConductores() {
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
 		return em.createQuery("SELECT c FROM Conductor c", Conductor.class).getResultList();
 	}
-
+	
+	/**
+	 * Inicializa currentConductor con un objeto Conductor
+	 */
 	@Command
 	@NotifyChange("currentConductor")
 	public void newConductor() {
 		this.currentConductor = new Conductor();
 	}
-
+	
+	/**
+	 * Elimina el conductor de la base de datos 
+	 * pasado como parámetro. Si el conductor tiene
+	 * un vehículo asociado, este se estable a null
+	 * @param conductor
+	 */
 	@Command
 	@NotifyChange("conductores")
 	public void delete(@BindingParam("e") Conductor conductor) {
@@ -46,13 +63,22 @@ public class ConductoresVM {
 			em.remove(conductor);
 		});
 	}
-
+	
+	/**
+	 * Permite editar un conductor. Para ello almacena en currentConductor 
+	 * el conductor pasado como parámetro.
+	 * @param conductor
+	 */
 	@Command
 	@NotifyChange("currentConductor")
 	public void edit(@BindingParam("e") Conductor conductor) {
 		this.currentConductor = conductor;
 	}
-
+	
+	/**
+	 * Almacena o persiste el objeto currentConductor en base de datos.
+	 * Una vez hecho esto lo establece a null.
+	 */
 	@Command
 	@NotifyChange({ "conductores", "currentConductor" })
 	public void save() {
@@ -63,7 +89,10 @@ public class ConductoresVM {
 		});
 		this.currentConductor = null;
 	}
-
+	
+	/**
+	 * Cancela la acción estableciendo currentConductor a null
+	 */
 	@Command
 	@NotifyChange("currentConductor")
 	public void cancel() {

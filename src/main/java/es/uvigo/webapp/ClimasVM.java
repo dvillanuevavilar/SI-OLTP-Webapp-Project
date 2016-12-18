@@ -17,28 +17,49 @@ import es.uvigo.Clima;
 
 public class ClimasVM {
 	private Clima currentClima = null;
-
+	
+	/**
+	 * 
+	 * @return currentClima
+	 */
 	public Clima getCurrentClima() {
 		return currentClima;
 	}
-
+	
+	/**
+	 * Devuelve una lista con los climas existentes en base de datos
+	 * @return List Clima
+	 */
 	public List<Clima> getClimas() {
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
 		return em.createQuery("SELECT c FROM Clima c", Clima.class).getResultList();
 	}
-
+	
+	/**
+	 * Inicializa currentClima con un objeto Clima
+	 */
 	@Command
 	@NotifyChange("currentClima")
 	public void newClima() {
 		this.currentClima = new Clima();
 	}
 
+	/**
+	 * Permite editar un clima. Para ello almacena en 
+	 * currentClima el clima pasado como parámetro.
+	 * @param clima
+	 */
 	@Command
 	@NotifyChange("currentClima")
 	public void edit(@BindingParam("c") Clima clima) {
 		this.currentClima = clima;
 	}
 
+	/**
+	 * Elimina el clima de la base de datos 
+	 * pasado como parámetro
+	 * @param clima
+	 */
 	@Command
 	@NotifyChange("climas")
 	public void delete(@BindingParam("c") Clima clima) {
@@ -54,6 +75,10 @@ public class ClimasVM {
 		});
 	}
 	
+	/**
+	 * Permite almacenar o persistir el objeto currentClima en
+	 * base de datos. Una vez hecho esto lo establece a null.
+	 */
 	@Command
 	@NotifyChange({"climas", "currentClima"})
 	public void save() {
@@ -64,6 +89,9 @@ public class ClimasVM {
 		this.currentClima= null;
 	}
 	
+	/**
+	 * Cancela la acción estableciendo currentClima a null
+	 */
 	@Command
 	@NotifyChange("currentClima")
 	public void cancel() {

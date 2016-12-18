@@ -20,26 +20,48 @@ public class VehiculosVM {
 	
 	private Vehiculo currentVehiculo = null;
 	
+	/**
+	 * 
+	 * @return currentVehiculo
+	 */
 	public Vehiculo getCurrentVehiculo() {
 		return currentVehiculo;
 	}
 	
+	/**
+	 * Devuelve una lista con los conductores existentes en base de datos 
+	 * que no disponen de un vehículo asociado
+	 * @return List Conductor 
+	 */
 	public List<Conductor> getConductores(){
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
 		return em.createQuery("SELECT c FROM Conductor c WHERE c.id NOT IN (SELECT conductor FROM Vehiculo)", Conductor.class).getResultList();
 	}
 	
+	/**
+	 * Devuelve una lista con los vehiculos existentes en base de datos
+	 * @return List Vehiculo
+	 */
 	public List<Vehiculo> getVehiculos(){
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
 		return em.createQuery("SELECT v FROM Vehiculo v", Vehiculo.class).getResultList();
 	}
 	
+	/**
+	 * Inicializa currentVehiculo con un objeto Vehiculo
+	 */
 	@Command
 	@NotifyChange("currentVehiculo")
 	public void newVehiculo() {
 		this.currentVehiculo = new Vehiculo();
 	}
 	
+	/**
+	 * Elimina el vehículo de la base de datos pasado como parámetro.
+	 * Para ello recorre los accidentes asociados al vehículo eliminando
+	 * dicho vehículo en cada accidente.
+	 * @param vehiculo
+	 */
 	@Command
 	@NotifyChange("vehiculos")
 	public void delete(@BindingParam("v") Vehiculo vehiculo) {
@@ -53,12 +75,21 @@ public class VehiculosVM {
 		});
 	}
 	
+	/**
+	 * Edita un vehículo. Para ello almacena en currentVehiculo el vehículo pasado
+	 * como parámetro.
+	 * @param vehiculo
+	 */
 	@Command
 	@NotifyChange("currentVehiculo")
 	public void edit(@BindingParam("v") Vehiculo vehiculo) {
 		this.currentVehiculo= vehiculo;
 	}
 	
+	/**
+	 * Persiste el objeto currentVehiculo en base de datos.
+	 * Un vez hecho esto lo establece a null.
+	 */
 	@Command
 	@NotifyChange({"vehiculos", "currentVehiculo","conductores"})
 	public void save() {
@@ -69,6 +100,9 @@ public class VehiculosVM {
 		this.currentVehiculo= null;
 	}
 	
+	/**
+	 * Cancela la acción estableciendo currentVehiculo a null
+	 */
 	@Command
 	@NotifyChange("currentVehiculo")
 	public void cancel() {

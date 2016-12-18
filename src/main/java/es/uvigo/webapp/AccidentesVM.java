@@ -20,47 +20,82 @@ import es.uvigo.Localizacion;
 public class AccidentesVM {
 
 	private Accidente currentAccidente = null;
-
+	
+	/**
+	 * @return currentAccidente
+	 */
 	public Accidente getCurrentAccidente() {
 		return currentAccidente;
 	}
-
+	
+	/**
+	 * Devuelve una lista con los accidentes existentes en base de datos
+	 * @return List Accidente
+	 */
 	public List<Accidente> getAccidentes() {
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
 		return em.createQuery("SELECT a FROM Accidente a", Accidente.class).getResultList();
 	}
-
+	
+	/**
+	 * Devuelve una lista con los climas existentes en base de datos
+	 * @return List Clima
+	 */
 	public List<Clima> getClimas() {
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
 		return em.createQuery("SELECT c FROM Clima c", Clima.class).getResultList();
 	}
 	
+	/**
+	 * Devuelve una lista con las localizaciones existentes en base de datos
+	 * @return List Localizacion
+	 */
 	public List<Localizacion> getLocalizaciones(){
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
 		return em.createQuery("SELECT l FROM Localizacion l", Localizacion.class).getResultList();
 	}
 	
+	/**
+	 * Devuelve una lista con las vias existentes en base de datos
+	 * @return List Via
+	 */
 	public List<Via> getVias(){
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
 		return em.createQuery("SELECT v FROM Via v", Via.class).getResultList();
 	}
 	
+	/**
+	 * Devuelve una lista con los vehiculos existentes en base de datos
+	 * @return List Vehiculo
+	 */
 	public List<Vehiculo> getVehiculos(){
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
 		return em.createQuery("SELECT v FROM Vehiculo v", Vehiculo.class).getResultList();
 	}
 	
+	/**
+	 * Devuelve una lista con los damnificados existentes en base de datos
+	 * @return List Damnificado
+	 */
 	public List<Damnificado> getDamnificados(){
 		EntityManager em = DesktopEntityManagerManager.getDesktopEntityManager();
 		return em.createQuery("SELECT d FROM Damnificado d", Damnificado.class).getResultList();
 	}
-
+	
+	/**
+	 * Inicializa currentAccidente con un objeto Accidente
+	 */
 	@Command
 	@NotifyChange("currentAccidente")
 	public void newAccidente() {
 		this.currentAccidente = new Accidente();
 	}
-
+	
+	/**
+	 * Elimina el accidente de la base de datos 
+	 * pasado como parámetro
+	 * @param accidente
+	 */
 	@Command
 	@NotifyChange("accidentes")
 	public void delete(@BindingParam("a") Accidente accidente) {
@@ -69,13 +104,22 @@ public class AccidentesVM {
 			em.remove(accidente);
 		});
 	}
-
+	
+	/**
+	 * Permite editar un accidente. Para ello almacena en 
+	 * currentAccidente el accidente pasado como parámetro.
+	 * @param accidente
+	 */
 	@Command
 	@NotifyChange("currentAccidente")
 	public void edit(@BindingParam("a") Accidente accidente) {
 		this.currentAccidente = accidente;
 	}
-
+	
+	/**
+	 * Permite almacenar o persistir el objeto currentAccidente en
+	 * base de datos. Una vez hecho esto lo establece a null.
+	 */
 	@Command
 	@NotifyChange({ "accidentes", "currentAccidente" })
 	public void save() {
@@ -85,7 +129,10 @@ public class AccidentesVM {
 		});
 		this.currentAccidente = null;
 	}
-
+	
+	/**
+	 * Cancela la acción estableciendo currentAccidente a null
+	 */
 	@Command
 	@NotifyChange("currentAccidente")
 	public void cancel() {
